@@ -5,20 +5,20 @@ const dbName = 'mongochat'
 
 const dbClient = new MongoClient(url)
 
-interface SetTextDataRequest {
+export interface SetTextDataRequest {
   username: string
   message: string
-  createdAt: Float32Array
+  createdAt: number
 }
 
 
-export async function set(data: Array<SetTextDataRequest>) {
+export async function create(data: SetTextDataRequest) {
   try {
     await dbClient.connect();
     const db = dbClient.db(dbName);
     const collection = db.collection('documents')
 
-    const insertResult = await collection.insertMany(data);
+    const insertResult = await collection.insertOne(data)
     console.log('Inserted documents =>', insertResult); //remove on deployment
   }
   catch (e) {
