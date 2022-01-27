@@ -16,6 +16,7 @@ export interface MessageDisplay {
     username: string
     message: string
     time: MessageTime
+    chatroom: string
 }
 
 
@@ -32,7 +33,8 @@ export function useMessage() {
                 id: message._id,
                 username: message.username,
                 message: message.message,
-                time: getDateTime(message.createdAt)
+                time: getDateTime(message.createdAt),
+                chatroom: message.chatroom
             })
         })
         return messageArray
@@ -43,7 +45,8 @@ export function useMessage() {
             id: messageResponse._id,
             username: messageResponse.username,
             message: messageResponse.message,
-            time: getDateTime(messageResponse.createdAt)
+            time: getDateTime(messageResponse.createdAt),
+            chatroom: messageResponse.chatroom
         })
     }
 

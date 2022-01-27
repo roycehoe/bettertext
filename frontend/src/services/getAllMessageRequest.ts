@@ -7,6 +7,7 @@ export interface MessageResponse {
     username: string
     message: string
     createdAt: number
+    chatroom: string
 }
 
 
