@@ -4,6 +4,11 @@ import { getAllMessageRequest, MessageResponse } from "../services/getAllMessage
 import { getDateTime, MessageTime } from "../services/getDateTime";
 
 
+export const messageForm = ref({} as SubmitMessageForm)
+
+export interface SubmitMessageForm extends CreateMessageRequest {
+}
+
 export interface MessageDisplay {
     id: string
     username: string

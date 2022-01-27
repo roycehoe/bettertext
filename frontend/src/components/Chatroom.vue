@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
-import { MessageDisplay, useMessage } from "../composables/useMessage";
-import { CreateMessageRequest } from "../services/createMessageRequest";
+import { MessageDisplay, messageForm, SubmitMessageForm, useMessage } from "../composables/useMessage";
 
 const { messageHistory, createMessageResponse, getAllMessage, createMessage } = useMessage()
 const messageSessionHistory = ref([] as Array<MessageDisplay>)
-const messageForm = ref({} as SubmitMessageForm)
 
 const socket = io("http://localhost:8000")
-
-interface SubmitMessageForm extends CreateMessageRequest {
-}
 
 async function sendMessage(messageForm: SubmitMessageForm) {
     await createMessage(messageForm)
