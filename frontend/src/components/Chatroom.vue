@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
-import { isJoinedChat, MessageDisplay, messageForm, messageHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
+import { isJoinedChat, MessageDisplay, messageForm, messageHistory, messageSessionHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
 import Message from "./Message.vue";
 
 
 const { createMessageResponse, createMessage } = useMessage()
-const messageSessionHistory = ref([] as Array<MessageDisplay>)
 
 const socket = io("http://localhost:8000")
 
 async function sendMessage() {
   await createMessage(messageForm.value)
   socket.emit('message', createMessageResponse.value)
+  messageForm.value.message = ""
 }
 
 async function setupMessageSocket() {
   socket.on('message', (data) => {
+    console.log(data)
     messageSessionHistory.value.push(data)
   })
 }
@@ -45,9 +46,6 @@ onBeforeMount(() => { setupMessageSocket() })
         </form>
       </div>
     </div>
-    <p>message form: {{ messageForm }}</p>
-    <p>Broadcasted message: {{ messageSessionHistory }}</p>
-    <p>Message database: {{ messageHistory }}</p>
   </div>
 </template>
 

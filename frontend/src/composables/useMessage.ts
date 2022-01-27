@@ -7,6 +7,7 @@ import { getDateTime, MessageTime } from "../services/getDateTime";
 export const messageForm = ref({} as SubmitMessageForm)
 export const isJoinedChat = ref(false)
 export const messageHistory = ref({} as Array<MessageDisplay>)
+export const messageSessionHistory = ref([] as Array<MessageDisplay>)
 
 
 export interface SubmitMessageForm extends CreateMessageRequest {
