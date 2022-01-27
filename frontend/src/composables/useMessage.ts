@@ -14,10 +14,10 @@ export interface MessageDisplay {
 
 export function useMessage() {
 
-    const createMessageResponse = ref({} as CreateMessageResponse)
+    const createMessageResponse = ref({} as MessageDisplay)
     const messageHistory = ref({} as Array<MessageDisplay>)
 
-    function _createMessageArray(allMessageResponse: Array<MessageResponse>): Array<MessageDisplay> {
+    function _getCreateMessageArray(allMessageResponse: Array<MessageResponse>): Array<MessageDisplay> {
         const messageArray = [] as Array<MessageDisplay>
 
         allMessageResponse.forEach(message => {
@@ -31,7 +31,7 @@ export function useMessage() {
         return messageArray
     }
 
-    function _createMessageResponse(messageResponse: MessageResponse): MessageDisplay {
+    function _getCreateMessageResponse(messageResponse: MessageResponse): MessageDisplay {
         return ({
             id: messageResponse._id,
             username: messageResponse.username,
@@ -43,7 +43,7 @@ export function useMessage() {
     async function getAllMessage(): Promise<void> {
         const { ok: isSuccessful, val: response } = await getAllMessageRequest()
         if (isSuccessful) {
-            messageHistory.value = _createMessageArray(response as Array<MessageResponse>)
+            messageHistory.value = _getCreateMessageArray(response as Array<MessageResponse>)
             return
         }
         console.log(response)
@@ -53,7 +53,7 @@ export function useMessage() {
     async function createMessage(createMessageForm: CreateMessageRequest): Promise<void> {
         const { ok: isSuccessful, val: response } = await createMessageRequest(createMessageForm)
         if (isSuccessful) {
-            createMessageResponse.value = response as CreateMessageResponse
+            createMessageResponse.value = _getCreateMessageResponse(response as CreateMessageResponse)
             return
         }
         console.log(response)
