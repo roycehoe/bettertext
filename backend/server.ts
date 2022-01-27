@@ -28,9 +28,4 @@ io.on("connection", (socket) => {
   socket.on("message", (data) => { //listen for message event
     io.emit('message', data) //emit message to everyone
   })
-  socket.on("populateMessage", async () => { //listen for message event
-    const allMessages = await getMessage()
-    console.log(allMessages)
-    socket.emit("populateMessge", allMessages)
-  })
 })

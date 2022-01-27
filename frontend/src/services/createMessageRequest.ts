@@ -8,15 +8,15 @@ export interface CreateMessageRequest {
     message: string
 }
 
-interface CreateMessageResponse extends CreateMessageRequest {
+export interface CreateMessageResponse extends MessageResponse {
 }
 
 
-export async function createMessageRequest(message: CreateMessageRequest): Promise<Result<Array<CreateMessageResponse
->, string>> {
+export async function createMessageRequest(message: CreateMessageRequest): Promise<Result<CreateMessageResponse, string>> {
     try {
-        const response = await client.post("/");
-        return Ok(response.data as Array<MessageResponse>)
+        const response = await client.post("/", message);
+        console.log(response.data)
+        return Ok(response.data as CreateMessageResponse)
     }
     catch (error) {
         console.log(error)

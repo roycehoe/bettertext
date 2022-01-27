@@ -1,6 +1,8 @@
 import { ref } from "vue";
-import { CreateMessageRequest, createMessageRequest } from "../services/createMessageRequest";
+import { CreateMessageRequest, createMessageRequest, CreateMessageResponse } from "../services/createMessageRequest";
 import { getAllMessageRequest, MessageResponse } from "../services/getAllMessageRequest";
+
+export const createMessageResponse = ref({} as CreateMessageResponse)
 
 export function useMessage() {
 
@@ -19,6 +21,7 @@ export function useMessage() {
     async function createMessage(createMessageForm: CreateMessageRequest): Promise<void> {
         const { ok: isSuccessful, val: response } = await createMessageRequest(createMessageForm)
         if (isSuccessful) {
+            createMessageResponse.value = response as CreateMessageResponse
             return
         }
         console.log(response)
