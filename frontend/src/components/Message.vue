@@ -20,7 +20,7 @@ function getTimeDisplay(message: MessageDisplay) {
     <div class="rounded-lg mt-3">
       <p class="mx-2 mb-1">{{ message.username }}:</p>
       <div class="bg-base-200 rounded-lg px-2">
-        <p>{{ message.message }}</p>
+        <p class="overflow-hidden">{{ message.message }}</p>
         <p class="text-right mr-2 text-info">{{ getTimeDisplay(message) }}</p>
       </div>
     </div>

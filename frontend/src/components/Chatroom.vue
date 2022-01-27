@@ -13,6 +13,8 @@ async function sendMessage() {
   await createMessage(messageForm.value)
   socket.emit('message', createMessageResponse.value)
   messageForm.value.message = ""
+  setTimeout(() => { window.scroll(0, 999999) }, 1000)
+  // window.scroll(0, 999999)
 }
 
 async function setupMessageSocket() {
@@ -34,18 +36,18 @@ onBeforeMount(() => { setupMessageSocket() })
         <div class="card-body">
           <Message></Message>
         </div>
-        <form @submit.prevent="sendMessage">
-          <div class="card bg-base-200 rounded-none">
-            <input
-              v-model="messageForm.message"
-              type="text"
-              placeholder="Write a message..."
-              class="input bg-base-200"
-            />
-          </div>
-        </form>
       </div>
     </div>
+    <form @submit.prevent="sendMessage" class="sticky bottom-0 bg-green-900">
+      <div class="card bg-base-100 rounded-none">
+        <input
+          v-model="messageForm.message"
+          type="text"
+          placeholder="Write a message..."
+          class="input bg-base-100"
+        />
+      </div>
+    </form>
   </div>
 </template>
 
