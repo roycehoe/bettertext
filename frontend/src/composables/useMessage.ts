@@ -5,6 +5,8 @@ import { getDateTime, MessageTime } from "../services/getDateTime";
 
 
 export const messageForm = ref({} as SubmitMessageForm)
+export const isJoinedChat = ref(false)
+
 
 export interface SubmitMessageForm extends CreateMessageRequest {
 }

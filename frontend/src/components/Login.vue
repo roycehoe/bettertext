@@ -1,39 +1,56 @@
 <script setup lang="ts">
-import { io } from "socket.io-client"
-import { onBeforeMount, ref } from "vue";
-import { MessageDisplay, messageForm, SubmitMessageForm, useMessage } from "../composables/useMessage";
 
-const { messageHistory, createMessageResponse, getAllMessage, createMessage } = useMessage()
-const messageSessionHistory = ref([] as Array<MessageDisplay>)
+import { isJoinedChat, messageForm } from '../composables/useMessage';
 
-const socket = io("http://localhost:8000")
-
-async function sendMessage(messageForm: SubmitMessageForm) {
-    await createMessage(messageForm)
-    socket.emit('message', createMessageResponse.value)
-}
-
-async function setupMessageSocket() {
-    socket.on('message', (data) => {
-        messageSessionHistory.value.push(data)
-    })
-}
-
-
-onBeforeMount(() => { setupMessageSocket(); getAllMessage() })
 
 </script>
 
 <template>
-    <p>Create Message Response: {{ createMessageResponse }}</p>
-    <form @submit.prevent="sendMessage(messageForm)">
-        <input type="text" v-model="messageForm.username" />
-        <input type="text" v-model="messageForm.message" />
-        <button>Send message</button>
-    </form>
-    <p>message form: {{ messageForm }}</p>
-    <p>Broadcasted message: {{ messageSessionHistory }}</p>
-    <p>Message database: {{ messageHistory }}</p>
+  <form>
+    <div class="hero min-h-screen bg-base-200">
+      <div class="flex-col justify-center hero-content">
+        <div class="text-center">
+          <h1 class="mb-5 text-5xl font-bold">Better Texts</h1>
+          <p class="mb-5">Private chats, simplified</p>
+        </div>
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mx-96">
+          <div class="card-body">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Alias</span>
+              </label>
+              <input
+                v-model="messageForm.username"
+                type="text"
+                placeholder="alias"
+                minlength="3"
+                maxlength="20"
+                required
+                class="input input-bordered"
+              />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Chatroom</span>
+              </label>
+              <input
+                type="text"
+                minlength="3"
+                maxlength="20"
+                required
+                placeholder="chatroom"
+                class="input input-bordered"
+              />
+            </div>
+            <div class="form-control mt-6">
+              <input type="submit" value="Start chatting" class="btn btn-primary" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p>{{ isJoinedChat }}</p>
 </template>
 
 <style>

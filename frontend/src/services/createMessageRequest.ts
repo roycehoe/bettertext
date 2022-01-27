@@ -15,7 +15,6 @@ export interface CreateMessageResponse extends MessageResponse {
 export async function createMessageRequest(message: CreateMessageRequest): Promise<Result<CreateMessageResponse, string>> {
     try {
         const response = await client.post("/", message);
-        console.log(response.data)
         return Ok(response.data as CreateMessageResponse)
     }
     catch (error) {
