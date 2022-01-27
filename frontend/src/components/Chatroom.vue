@@ -2,6 +2,7 @@
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
 import { isJoinedChat, MessageDisplay, messageForm, messageHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
+import Message from "./Message.vue";
 
 
 const { createMessageResponse, createMessage } = useMessage()
@@ -27,14 +28,10 @@ onBeforeMount(() => { setupMessageSocket() })
 
 <template>
   <div v-if="isJoinedChat">
-    <div class="hero min-h-screen bg-base-200">
-      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div class="min-h-screen min-w-full bg-base-200 flex justify-center">
+      <div class="card flex-shrink-0 w-full max-w-2xl my-28 shadow-2xl bg-base-100">
         <div class="card-body">
-          <p>Messages go here</p>
-          <p>Messages go here</p>
-          <p>Messages go here</p>
-          <p>Messages go here</p>
-          <p>Messages go here</p>
+          <Message></Message>
         </div>
         <form @submit.prevent="sendMessage">
           <div class="card bg-base-200 rounded-none">
