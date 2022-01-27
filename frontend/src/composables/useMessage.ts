@@ -1,17 +1,49 @@
 import { ref } from "vue";
 import { CreateMessageRequest, createMessageRequest, CreateMessageResponse } from "../services/createMessageRequest";
 import { getAllMessageRequest, MessageResponse } from "../services/getAllMessageRequest";
+import { getDateTime, MessageTime } from "../services/getDateTime";
 
-export const createMessageResponse = ref({} as CreateMessageResponse)
+
+export interface MessageDisplay {
+    id: string
+    username: string
+    message: string
+    time: MessageTime
+}
+
 
 export function useMessage() {
 
-    const messageHistory = ref({} as Array<MessageResponse>)
+    const createMessageResponse = ref({} as CreateMessageResponse)
+    const messageHistory = ref({} as Array<MessageDisplay>)
+
+    function _createMessageArray(allMessageResponse: Array<MessageResponse>): Array<MessageDisplay> {
+        const messageArray = [] as Array<MessageDisplay>
+
+        allMessageResponse.forEach(message => {
+            messageArray.push({
+                id: message._id,
+                username: message.username,
+                message: message.message,
+                time: getDateTime(message.createdAt)
+            })
+        })
+        return messageArray
+    }
+
+    function _createMessageResponse(messageResponse: MessageResponse): MessageDisplay {
+        return ({
+            id: messageResponse._id,
+            username: messageResponse.username,
+            message: messageResponse.message,
+            time: getDateTime(messageResponse.createdAt)
+        })
+    }
 
     async function getAllMessage(): Promise<void> {
         const { ok: isSuccessful, val: response } = await getAllMessageRequest()
         if (isSuccessful) {
-            messageHistory.value = response as Array<MessageResponse>
+            messageHistory.value = _createMessageArray(response as Array<MessageResponse>)
             return
         }
         console.log(response)
@@ -27,7 +59,7 @@ export function useMessage() {
         console.log(response)
     }
 
-    return { messageHistory, getAllMessage, createMessage }
+    return { messageHistory, createMessageResponse, getAllMessage, createMessage }
 
 
 }

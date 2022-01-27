@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
-import { createMessageResponse, useMessage } from "./composables/useMessage";
+import { useMessage } from "./composables/useMessage";
 import { createMessageRequest, CreateMessageRequest } from "./services/createMessageRequest";
 
-const { messageHistory, getAllMessage, createMessage } = useMessage()
+const { messageHistory, createMessageResponse, getAllMessage, createMessage } = useMessage()
 const messageSessionHistory = ref([] as Array<CreateMessageRequest>)
 const messageForm = ref({} as SubmitMessageForm)
 
