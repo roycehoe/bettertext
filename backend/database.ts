@@ -19,7 +19,7 @@ export async function createMessage(data: SetTextDataRequest) {
     const collection = db.collection('documents')
 
     const insertResult = await collection.insertOne(data)
-    console.log('Inserted documents =>', insertResult); //remove on deployment
+    // console.log('Inserted documents =>', insertResult); //remove on deployment
   }
   catch (e) {
     console.error(e)
@@ -36,7 +36,7 @@ export async function getMessage(params: Object = {}) {
     const collection = db.collection('documents')
 
     const findResult = await collection.find(params).toArray();
-    console.log('Found documents =>', findResult);
+    // console.log('Found documents =>', findResult);
     return findResult
   }
   catch (e) {

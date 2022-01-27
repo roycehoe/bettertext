@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
+import { useMessage } from "./composables/useMessage";
+
+const { messageHistory, getAllMessage, createMessage } = useMessage()
 
 const messageLatest = ref()
 const messageForm = ref({} as SubmitMessageForm)
-const messageAll = ref({})
 const socket = io("http://localhost:8000")
 
 interface SubmitMessageForm {
@@ -12,29 +14,21 @@ interface SubmitMessageForm {
   message: string
 }
 
-
-
-function sendMessage() {
+function broadcastMessage() { //refactor to broadcast message
   socket.on('message', (data) => {
-    // messageForm.value = data
     messageLatest.value = data
   })
   socket.emit('message', messageForm.value)
 }
 
-function getMessage() {
-  socket.on('populateMessage', (data) => {
-    messageLatest.value = data
-  })
-  socket.emit('message', messageLatest.value)
-}
 
-function test() {
-  console.log("hello world")
+function sendMessage() {
+  broadcastMessage()
+  //save message to database here
 }
 
 
-onBeforeMount(() => getMessage())
+onBeforeMount(() => getAllMessage())
 
 </script>
 
@@ -46,7 +40,7 @@ onBeforeMount(() => getMessage())
   </form>
   <p>message form: {{ messageForm }}</p>
   <p>Latest emitted message: {{ messageLatest }}</p>
-  <p>Message database: {{ messageAll }}</p>
+  <p>Message database: {{ messageHistory }}</p>
 </template>
 
 <style>
