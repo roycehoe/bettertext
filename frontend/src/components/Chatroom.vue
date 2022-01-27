@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
-import { isJoinedChat, MessageDisplay, messageForm, SubmitMessageForm, useMessage } from "../composables/useMessage";
+import { isJoinedChat, MessageDisplay, messageForm, messageHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
 
 
-const { messageHistory, createMessageResponse, getAllMessage, createMessage } = useMessage()
+const { createMessageResponse, getAllMessage, createMessage } = useMessage()
 const messageSessionHistory = ref([] as Array<MessageDisplay>)
 
 const socket = io("http://localhost:8000")
@@ -21,13 +21,12 @@ async function setupMessageSocket() {
 }
 
 
-onBeforeMount(() => { setupMessageSocket(); getAllMessage() })
+onBeforeMount(() => { setupMessageSocket() })
 
 </script>
 
 <template>
     <div v-if="isJoinedChat">
-        <p>Create Message Response: {{ createMessageResponse }}</p>
         <form @submit.prevent="sendMessage(messageForm)">
             <input type="text" v-model="messageForm.username" />
             <input type="text" v-model="messageForm.message" />

@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { isJoinedChat, messageForm } from '../composables/useMessage';
+import { isJoinedChat, messageForm, useMessage } from '../composables/useMessage';
+
+const { getAllMessage } = useMessage()
+
 </script>
 
 <template>
-  <form v-if="!isJoinedChat" @submit.prevent="isJoinedChat = !isJoinedChat">
+  <form v-if="!isJoinedChat" @submit.prevent="isJoinedChat = !isJoinedChat; getAllMessage()">
     <div class="hero min-h-screen bg-base-200">
       <div class="flex-col justify-center hero-content">
         <div class="text-center">

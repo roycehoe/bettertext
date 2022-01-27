@@ -6,6 +6,7 @@ import { getDateTime, MessageTime } from "../services/getDateTime";
 
 export const messageForm = ref({} as SubmitMessageForm)
 export const isJoinedChat = ref(false)
+export const messageHistory = ref({} as Array<MessageDisplay>)
 
 
 export interface SubmitMessageForm extends CreateMessageRequest {
@@ -23,7 +24,6 @@ export interface MessageDisplay {
 export function useMessage() {
 
     const createMessageResponse = ref({} as MessageDisplay)
-    const messageHistory = ref({} as Array<MessageDisplay>)
 
     function _getCreateMessageArray(allMessageResponse: Array<MessageResponse>): Array<MessageDisplay> {
         const messageArray = [] as Array<MessageDisplay>
@@ -51,7 +51,7 @@ export function useMessage() {
     }
 
     async function getAllMessage(): Promise<void> {
-        const { ok: isSuccessful, val: response } = await getAllMessageRequest()
+        const { ok: isSuccessful, val: response } = await getAllMessageRequest(messageForm.value.chatroom)
         if (isSuccessful) {
             messageHistory.value = _getCreateMessageArray(response as Array<MessageResponse>)
             return
@@ -69,7 +69,7 @@ export function useMessage() {
         console.log(response)
     }
 
-    return { messageHistory, createMessageResponse, getAllMessage, createMessage }
+    return { createMessageResponse, getAllMessage, createMessage }
 
 
 }

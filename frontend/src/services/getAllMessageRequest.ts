@@ -11,9 +11,9 @@ export interface MessageResponse {
 }
 
 
-export async function getAllMessageRequest(): Promise<Result<Array<MessageResponse>, string>> {
+export async function getAllMessageRequest(chatroom: string): Promise<Result<Array<MessageResponse>, string>> {
     try {
-        const response = await client.get("/");
+        const response = await client.get(`/${chatroom}`);
         return Ok(response.data as Array<MessageResponse>)
     }
     catch (error) {
