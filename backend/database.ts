@@ -12,7 +12,7 @@ export interface SetTextDataRequest {
 }
 
 
-export async function create(data: SetTextDataRequest) {
+export async function createMessage(data: SetTextDataRequest) {
   try {
     await dbClient.connect();
     const db = dbClient.db(dbName);
@@ -29,7 +29,7 @@ export async function create(data: SetTextDataRequest) {
   }
 }
 
-export async function get(params: Object = {}) {
+export async function getMessage(params: Object = {}) {
   try {
     await dbClient.connect();
     const db = dbClient.db(dbName);

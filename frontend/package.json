@@ -7,7 +7,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "socket.io-client": "^4.4.1",
+    "ts-results": "^3.3.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {
