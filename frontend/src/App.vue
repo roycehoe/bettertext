@@ -7,7 +7,7 @@ import Login from './components/Login.vue';
 
 <template>
   <Login></Login>
-  <!-- <Chatroom></Chatroom> -->
+  <Chatroom></Chatroom>
 </template>
 
 <style>

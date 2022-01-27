@@ -1,12 +1,9 @@
 <script setup lang="ts">
-
 import { isJoinedChat, messageForm } from '../composables/useMessage';
-
-
 </script>
 
 <template>
-  <form>
+  <form v-if="!isJoinedChat" @submit.prevent="isJoinedChat = !isJoinedChat">
     <div class="hero min-h-screen bg-base-200">
       <div class="flex-col justify-center hero-content">
         <div class="text-center">
@@ -34,6 +31,7 @@ import { isJoinedChat, messageForm } from '../composables/useMessage';
                 <span class="label-text">Chatroom</span>
               </label>
               <input
+                v-model="messageForm.chatroom"
                 type="text"
                 minlength="3"
                 maxlength="20"
@@ -50,7 +48,6 @@ import { isJoinedChat, messageForm } from '../composables/useMessage';
       </div>
     </div>
   </form>
-  <p>{{ isJoinedChat }}</p>
 </template>
 
 <style>

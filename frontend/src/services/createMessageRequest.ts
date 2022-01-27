@@ -6,6 +6,7 @@ import { MessageResponse } from "./getAllMessageRequest";
 export interface CreateMessageRequest {
     username: string
     message: string
+    chatroom: string
 }
 
 export interface CreateMessageResponse extends MessageResponse {
