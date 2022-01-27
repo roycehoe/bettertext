@@ -1,11 +1,11 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
-import { useMessage } from "./composables/useMessage";
-import { createMessageRequest, CreateMessageRequest } from "./services/createMessageRequest";
+import { MessageDisplay, useMessage } from "./composables/useMessage";
+import { CreateMessageRequest } from "./services/createMessageRequest";
 
 const { messageHistory, createMessageResponse, getAllMessage, createMessage } = useMessage()
-const messageSessionHistory = ref([] as Array<CreateMessageRequest>)
+const messageSessionHistory = ref([] as Array<MessageDisplay>)
 const messageForm = ref({} as SubmitMessageForm)
 
 const socket = io("http://localhost:8000")
@@ -39,6 +39,17 @@ onBeforeMount(() => { setupMessageSocket(); getAllMessage() })
   <p>message form: {{ messageForm }}</p>
   <p>Broadcasted message: {{ messageSessionHistory }}</p>
   <p>Message database: {{ messageHistory }}</p>
+</template>
+
+<style>
+</style> -->
+
+<script setup lang="ts">
+import Chatroom from './components/Chatroom.vue';
+</script>
+
+<template>
+  <Chatroom></Chatroom>
 </template>
 
 <style>
