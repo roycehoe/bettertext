@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const BASEURL = "http://localhost:8000/"
+const BASEURL = "https://bettertext.fancybinary.sg/api"
 
 
 export const client: AxiosInstance = axios.create({

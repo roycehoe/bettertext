@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.25.0",
     "daisyui": "^1.25.4",
+    "nginx": "^1.0.3",
     "socket.io-client": "^4.4.1",
     "ts-results": "^3.3.0",
     "vue": "^3.2.25"
