@@ -14,7 +14,7 @@ app.use("/", router)
 
 
 const httpServer = createServer(app);
-httpServer.listen(8000);
+httpServer.listen(80);
 
 const io = new Server(httpServer, { cors: { origin: "*" } });
 

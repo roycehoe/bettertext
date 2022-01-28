@@ -7,7 +7,7 @@ import Message from "./Message.vue";
 
 const { createMessageResponse, createMessage } = useMessage()
 
-const socket = io("http://localhost:8000")
+const socket = io("http://localhost/socket")
 
 async function sendMessage() {
   await createMessage(messageForm.value)
