@@ -1,10 +1,10 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { getMessage } from "./database";
 
 var router = require('./router')
 var cors = require('cors')
+var httpProxy = require("http-proxy")
 
 const app = express();
 app.use(cors())
@@ -12,8 +12,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", router)
 
-const httpServer = createServer(app);
-httpServer.listen(8000);
+
+// const httpServer = createServer(app);
+// httpServer.listen(8000);
+
+const httpServer = httpProxy.createProxyServer({
+  target: "http://localhost:8000",
+  ws: true,
+}).listen(80)
 
 const io = new Server(httpServer, { cors: { origin: "*" } });
 
