@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const url = 'mongodb://localhost/mongochat'
+const url = 'mongodb://database:27017'
 const dbName = 'mongochat'
 
 const dbClient = new MongoClient(url)
