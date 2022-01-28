@@ -13,7 +13,6 @@ services:
     volumes:
       - /app/node_modules
       - ./backend:/app
-
   webpage:
     build: ./frontend
     volumes:
