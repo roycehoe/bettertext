@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 
 var router = require('./router')
 var cors = require('cors')
-var httpProxy = require("http-proxy")
+const httpProxy = require("http-proxy");
 
 const app = express();
 app.use(cors())
