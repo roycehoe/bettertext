@@ -20,24 +20,32 @@ async function sendMessage() {
 
 <template>
   <div v-if="isJoinedChat">
-    <div class="bg-base-200 flex justify-center min-h-screen h-screen flex-col items-center">
-      <div class="card flex-shrink-0 max-w-4xl mt-28 shadow-2xl bg-base-100 w-4/5 h-4/5">
-        <div
-          class="card-body scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-700 overflow-y-scroll"
-        >
-          <Message></Message>
+    <div class="bg-base-200 justify-center min-h-screen h-screen">
+      <div
+        class="bg-base-200 flex justify-center min-h-screen h-screen flex-col items-center mx-80"
+      >
+        <div class="w-full">
+          <p class="font-mono my-5">Chatroom: {{ messageForm.chatroom }}</p>
         </div>
+
+        <div class="card flex-shrink-0 shadow-2xl bg-base-100 w-full h-3/5">
+          <div
+            class="card-body scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-700 overflow-y-scroll"
+          >
+            <Message></Message>
+          </div>
+        </div>
+        <form @submit.prevent="sendMessage" class="w-full mb-28 mt-2">
+          <div class="card bg-base-200">
+            <input
+              v-model="messageForm.message"
+              type="text"
+              placeholder="Write a message..."
+              class="input bg-base-100"
+            />
+          </div>
+        </form>
       </div>
-      <form @submit.prevent="sendMessage" class="w-full max-w-4xl mb-28 mt-2">
-        <div class="card bg-base-200">
-          <input
-            v-model="messageForm.message"
-            type="text"
-            placeholder="Write a message..."
-            class="input bg-base-100"
-          />
-        </div>
-      </form>
     </div>
   </div>
 </template>
