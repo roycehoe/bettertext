@@ -17,15 +17,15 @@ async function sendMessage() {
   // window.scroll(0, 999999)
 }
 
-async function setupMessageSocket() {
-  socket.on('message', (data) => {
-    console.log(data)
-    messageSessionHistory.value.push(data)
-  })
-}
+// async function setupMessageSocket() {
+//   socket.on('message', (data) => {
+//     console.log(data)
+//     messageSessionHistory.value.push(data)
+//   })
+// }
 
 
-onBeforeMount(() => { setupMessageSocket() })
+// onBeforeMount(() => { setupMessageSocket() })
 
 </script>
 
