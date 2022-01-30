@@ -70,7 +70,12 @@ export function useMessage() {
         console.log(response)
     }
 
-    return { createMessageResponse, getAllMessage, createMessage }
+    async function resetMessageForm(): Promise<void> {
+        messageForm.value = { username: '', message: '', chatroom: '' }
+    }
+
+
+    return { createMessageResponse, getAllMessage, createMessage, resetMessageForm }
 
 
 }

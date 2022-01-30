@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
-import { onBeforeMount, ref } from "vue";
-import { isJoinedChat, MessageDisplay, messageForm, messageHistory, messageSessionHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
+import { isJoinedChat, messageForm, useMessage } from "../composables/useMessage";
 import Message from "./Message.vue";
 
 
-const { createMessageResponse, createMessage } = useMessage()
+const { createMessageResponse, createMessage, resetMessageForm } = useMessage()
 
 
 async function sendMessage() {
@@ -16,6 +15,7 @@ async function sendMessage() {
   messageForm.value.message = ""
 }
 
+
 </script>
 
 <template>
@@ -24,18 +24,26 @@ async function sendMessage() {
       <div
         class="bg-base-200 flex justify-center min-h-screen h-screen flex-col items-center mx-80"
       >
-        <div class="w-full">
-          <p class="font-mono my-5">Chatroom: {{ messageForm.chatroom }}</p>
+        <div class="w-full flex justify-between px-8">
+          <div class="flex items-center">
+            <p class="font-mono inline-block text-center">Chatroom: {{ messageForm.chatroom }}</p>
+          </div>
+          <input
+            @click="isJoinedChat = !isJoinedChat, resetMessageForm()"
+            type="button"
+            value="Exit chat"
+            class="btn inline-block ml-auto mr-0 text-right"
+          />
         </div>
 
-        <div class="card flex-shrink-0 shadow-2xl bg-base-100 w-full h-3/5">
+        <div class="card flex-shrink-0 shadow-2xl bg-base-100 w-full h-4/5">
           <div
             class="card-body scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-700 overflow-y-scroll"
           >
             <Message></Message>
           </div>
         </div>
-        <form @submit.prevent="sendMessage" class="w-full mb-28 mt-2">
+        <form @submit.prevent="sendMessage" class="w-full mt-2">
           <div class="card bg-base-200">
             <input
               v-model="messageForm.message"
