@@ -1,7 +1,6 @@
 import express from "express";
-import { createServer } from "http";
-import { Server } from "socket.io";
-import { getMessage } from "./database";
+import { createSocketServer, setupSocketServer } from "./socket";
+
 
 var router = require('./router')
 var cors = require('cors')
@@ -12,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", router)
 
+<<<<<<< HEAD
 
 const httpServer = createServer(app);
 httpServer.listen(80);
@@ -30,3 +30,7 @@ io.on("connection", (socket) => {
     io.emit('message', data) //emit message to everyone
   })
 })
+=======
+const io = createSocketServer(app)
+setupSocketServer(io)
+>>>>>>> to-merge

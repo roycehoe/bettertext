@@ -1,12 +1,27 @@
 <script setup lang="ts">
-import { isJoinedChat, messageForm, useMessage } from '../composables/useMessage';
+import { io } from "socket.io-client"
+import { isJoinedChat, messageForm, messageSessionHistory, useMessage } from '../composables/useMessage';
+import { useSocket } from "../composables/useSocket";
+
+const SOCKET_URI = "http://localhost:8000"
 
 const { getAllMessage } = useMessage()
+const { joinSocketRoom, logMessageHistory } = useSocket()
+
+
+function setupMessageSocket() {
+  joinSocketRoom(messageForm.value.username, messageForm.value.chatroom)
+  logMessageHistory(messageSessionHistory.value)
+}
+
 
 </script>
 
 <template>
-  <form v-if="!isJoinedChat" @submit.prevent="isJoinedChat = !isJoinedChat; getAllMessage()">
+  <form
+    v-if="!isJoinedChat"
+    @submit.prevent="isJoinedChat = !isJoinedChat; getAllMessage(); setupMessageSocket()"
+  >
     <div class="hero min-h-screen bg-base-200">
       <div class="flex-col justify-center hero-content">
         <div class="text-center">

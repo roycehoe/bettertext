@@ -3,29 +3,23 @@ import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
 import { isJoinedChat, MessageDisplay, messageForm, messageHistory, messageSessionHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
 import Message from "./Message.vue";
+import { Socket, SocketOptions } from "./socket.js";
 
 
 const { createMessageResponse, createMessage } = useMessage()
 
+<<<<<<< HEAD
 const socket = io("http://localhost/socket")
+=======
+>>>>>>> to-merge
 
 async function sendMessage() {
+  const socket = io("http://localhost:8000")
   await createMessage(messageForm.value)
-  socket.emit('message', createMessageResponse.value)
+
+  socket.emit('message', messageForm.value.chatroom, createMessageResponse.value)
   messageForm.value.message = ""
-  setTimeout(() => { window.scroll(0, 999999) }, 1000)
-  // window.scroll(0, 999999)
 }
-
-async function setupMessageSocket() {
-  socket.on('message', (data) => {
-    console.log(data)
-    messageSessionHistory.value.push(data)
-  })
-}
-
-
-onBeforeMount(() => { setupMessageSocket() })
 
 </script>
 
