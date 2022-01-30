@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
+import { onBeforeMount } from "vue";
 import { isJoinedChat, messageForm, useMessage } from "../composables/useMessage";
 import Message from "./Message.vue";
 
@@ -11,9 +12,12 @@ async function sendMessage() {
   const socket = io("http://localhost:8000")
   await createMessage(messageForm.value)
 
+
   socket.emit('message', messageForm.value.chatroom, createMessageResponse.value)
+
   messageForm.value.message = ""
 }
+
 
 
 </script>
@@ -39,6 +43,7 @@ async function sendMessage() {
         <div class="card flex-shrink-0 shadow-2xl bg-base-100 w-full h-4/5">
           <div
             class="card-body scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-700 overflow-y-scroll"
+            id="messageList"
           >
             <Message></Message>
           </div>

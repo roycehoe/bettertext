@@ -19,8 +19,15 @@ function setupMessageSocket() {
     console.log(messageSessionHistory.value)
       ;
   });
-}
 
+  socket.on("messagesent", () => {
+    const messageList = document.getElementById("messageList");
+    if (messageList) {
+      messageList.scrollTop = messageList.scrollHeight;
+      console.log("scrolled")
+    }
+  })
+}
 
 </script>
 
