@@ -3,15 +3,10 @@ import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
 import { isJoinedChat, MessageDisplay, messageForm, messageHistory, messageSessionHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
 import Message from "./Message.vue";
-import { Socket, SocketOptions } from "./socket.js";
 
 
 const { createMessageResponse, createMessage } = useMessage()
 
-<<<<<<< HEAD
-const socket = io("http://localhost/socket")
-=======
->>>>>>> to-merge
 
 async function sendMessage() {
   const socket = io("http://localhost:8000")

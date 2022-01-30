@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
 import { isJoinedChat, messageForm, messageSessionHistory, useMessage } from '../composables/useMessage';
-import { useSocket } from "../composables/useSocket";
 
-const SOCKET_URI = "http://localhost:8000"
 
 const { getAllMessage } = useMessage()
-const { joinSocketRoom, logMessageHistory } = useSocket()
+
 
 
 function setupMessageSocket() {
-  joinSocketRoom(messageForm.value.username, messageForm.value.chatroom)
-  logMessageHistory(messageSessionHistory.value)
+  const socket = io("http://localhost:8000")
+  socket.on('connect', () => {
+    socket.emit('room', messageForm.value.chatroom, messageForm.value.username)
+      ;
+  });
+  socket.on('message', (data) => {
+    console.log(data)
+    messageSessionHistory.value.push(data)
+    console.log(messageSessionHistory.value)
+      ;
+  });
 }
 
 
