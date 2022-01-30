@@ -29,13 +29,13 @@ function setupMessageSocket() {
     v-if="!isJoinedChat"
     @submit.prevent="isJoinedChat = !isJoinedChat; getAllMessage(); setupMessageSocket()"
   >
-    <div class="hero min-h-screen bg-base-200">
-      <div class="flex-col justify-center hero-content">
-        <div class="text-center">
+    <div class="min-h-screen bg-base-200">
+      <div class="flex flex-col justify-center items-center mx-12">
+        <div class="text-center mt-48">
           <h1 class="mb-5 text-5xl font-bold">Better Texts</h1>
           <p class="mb-5">Private chats, simplified</p>
         </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mx-96">
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div class="card-body">
             <div class="form-control">
               <label class="label">

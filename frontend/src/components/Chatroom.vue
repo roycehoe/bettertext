@@ -22,7 +22,7 @@ async function sendMessage() {
   <div v-if="isJoinedChat">
     <div class="bg-base-200 justify-center min-h-screen h-screen">
       <div
-        class="bg-base-200 flex justify-center min-h-screen h-screen flex-col items-center mx-80"
+        class="bg-base-200 flex justify-center min-h-screen h-screen flex-col items-center lg:mx-80"
       >
         <div class="w-full flex justify-between px-8">
           <div class="flex items-center">
