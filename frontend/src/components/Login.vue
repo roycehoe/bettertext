@@ -2,15 +2,18 @@
 import { io } from "socket.io-client"
 import { isJoinedChat, messageForm, messageSessionHistory, useMessage } from '../composables/useMessage';
 
-const { getAllMessage } = useMessage()
-const socket = io("http://localhost:8000")
-const room = "test"
+const SOCKET_URI = "http://localhost:8000"
 
-socket.on('connect', function () {
-  socket.emit('room', room);
-});
+const { getAllMessage } = useMessage()
+
 
 async function setupMessageSocket() {
+  const socket = io(SOCKET_URI)
+
+  socket.on('connect', () => {
+    socket.emit('room', messageForm.value.chatroom)
+      ;
+  });
   socket.on('message', (data) => {
     console.log(data)
     messageSessionHistory.value.push(data)

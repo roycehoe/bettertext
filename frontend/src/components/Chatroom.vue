@@ -10,10 +10,13 @@ const { createMessageResponse, createMessage } = useMessage()
 const socket = io("http://localhost:8000")
 
 async function sendMessage() {
+  const socket = io("http://localhost:8000")
   await createMessage(messageForm.value)
-  socket.emit('message', createMessageResponse.value)
+
+  // socket.emit('message', createMessageResponse.value)
+  socket.emit('message', messageForm.value.chatroom, createMessageResponse.value)
   messageForm.value.message = ""
-  setTimeout(() => { window.scroll(0, 999999) }, 1000)
+  // setTimeout(() => { window.scroll(0, 999999) }, 1000)
   // window.scroll(0, 999999)
 }
 

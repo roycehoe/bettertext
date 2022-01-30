@@ -11,13 +11,15 @@ export function createSocketServer(app: core.Express): Server {
 export function setupSocketServer(io: Server) {
     // io.on("connection", (socket) => {
     //     console.log("connected")
-    io.sockets.on('connection', function (socket) {
+    io.sockets.on('connection', (socket) => {
         // once a client has connected, we expect to get a ping from them saying what room they want to join
-        socket.on('room', function (room) {
+        socket.on('room', (room) => {
             socket.join(room);
+            console.log("A user has joined the following room: ", room)
         });
-        socket.on("message", (data) => { //listen for message event
-            io.emit('message', data) //emit message to everyone
+        socket.on("message", (room, data) => { //listen for message event
+            // io.emit('message', data) //emit message to everyone
+            io.sockets.in(room).emit('message', data)
         })
     });
 
