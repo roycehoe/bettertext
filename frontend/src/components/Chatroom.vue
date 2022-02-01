@@ -12,11 +12,16 @@ async function sendMessage() {
   const socket = io("http://localhost:8000")
   await createMessage(messageForm.value)
 
-
   socket.emit('message', messageForm.value.chatroom, createMessageResponse.value)
 
   messageForm.value.message = ""
 }
+
+function socketLogout() {
+  const socket = io("http://localhost:8000")
+  socket.emit('logout', messageForm.value.chatroom)
+}
+
 
 
 
@@ -33,7 +38,7 @@ async function sendMessage() {
             <p class="font-mono inline-block text-center">Chatroom: {{ messageForm.chatroom }}</p>
           </div>
           <input
-            @click="isJoinedChat = !isJoinedChat, resetMessageForm()"
+            @click="isJoinedChat = !isJoinedChat; socketLogout(); resetMessageForm()"
             type="button"
             value="Exit chat"
             class="btn inline-block ml-auto mr-0 text-right"

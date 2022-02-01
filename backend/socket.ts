@@ -18,13 +18,20 @@ export function setupSocketServer(io: Server) {
         });
 
         socket.on("message", (room, data) => {
-            console.log(data)
+            // console.log(data)
             io.sockets.in(room).emit('message', data)
         })
 
         socket.on("message", (room) => {
             io.sockets.in(room).emit('messagesent')
         })
+
+        socket.on("message", (room) => {
+            io.sockets.in(room).emit('messagesent')
+        })
+        socket.on('disconnect', (room) => {
+            socket.leave(room);
+        });
     });
 
     io.on("connect_error", (err) => {

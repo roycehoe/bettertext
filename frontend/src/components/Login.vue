@@ -18,7 +18,6 @@ function setupMessageSocket() {
     ;
   });
   socket.on('message', (data) => {
-    console.log(data)
     messageSessionHistory.value.push(data)
       ;
   });
