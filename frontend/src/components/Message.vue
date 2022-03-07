@@ -3,7 +3,6 @@ import { io } from "socket.io-client"
 import { onBeforeMount, ref } from "vue";
 import { isJoinedChat, MessageDisplay, messageForm, messageHistory, messageSessionHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
 
-
 const { createMessageResponse, createMessage } = useMessage()
 
 function getTimeDisplay(message: MessageDisplay) {
