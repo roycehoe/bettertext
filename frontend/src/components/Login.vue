@@ -5,29 +5,29 @@ import { isJoinedChat, messageForm, messageSessionHistory, useMessage } from '..
 
 const { getAllMessage } = useMessage()
 
-
+function _scrollToTop() {
+  const messageList = document.getElementById("messageList");
+  if (messageList) {
+    messageList.scrollTop = messageList.scrollHeight;
+  }
+  ;
+}
 
 function setupMessageSocket() {
   const socket = io("http://localhost:8000")
 
   socket.on('connect', () => {
     socket.emit('room', messageForm.value.chatroom, messageForm.value.username)
-      ;
+    _scrollToTop()
   });
 
   socket.on('message', (data) => {
     messageSessionHistory.value.push(data)
-    console.log(messageSessionHistory.value)
       ;
   });
 
   socket.on("messagesent", () => {
-    const messageList = document.getElementById("messageList");
-    console.log("message sent")
-    if (messageList) {
-      messageList.scrollTop = messageList.scrollHeight;
-      console.log("scrolled")
-    }
+    _scrollToTop()
   })
 }
 
