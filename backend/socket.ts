@@ -1,10 +1,11 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 import * as core from 'express-serve-static-core'
+import { SOCKET_IO_PORT } from "./config";
 
 export function createSocketServer(app: core.Express): Server {
     const httpServer = createServer(app);
-    httpServer.listen(8000);
+    httpServer.listen(SOCKET_IO_PORT);
     return new Server(httpServer, { cors: { origin: "*" } })
 }
 

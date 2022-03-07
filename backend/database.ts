@@ -1,8 +1,5 @@
 import { Collection, MongoClient } from 'mongodb';
-
-// const url = 'mongodb://database:27017'
-const DB_URL = 'mongodb://localhost:27017'
-const DB_NAME = 'mongochat'
+import { DB_NAME, DB_URL } from './config';
 
 const dbClient = new MongoClient(DB_URL)
 
