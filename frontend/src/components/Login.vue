@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
-import { isJoinedChat, messageForm, messageSessionHistory, useMessage } from '../composables/useMessage';
+import { isJoinedChat, messageForm, messageHistory, useMessage } from '../composables/useMessage';
 
 
 const { getAllMessage } = useMessage()
@@ -22,7 +22,7 @@ function setupMessageSocket() {
   });
 
   socket.on('message', (data) => {
-    messageSessionHistory.value.push(data)
+    messageHistory.value.push(data)
       ;
   });
 
