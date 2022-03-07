@@ -1,4 +1,4 @@
-import { Collection, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import { DB_NAME, DB_URL } from './config';
 
 const dbClient = new MongoClient(DB_URL)
