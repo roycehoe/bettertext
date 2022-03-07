@@ -23,6 +23,7 @@ function setupMessageSocket() {
 
   socket.on('message', (data) => {
     messageHistory.value.push(data)
+    _scrollToTop()
       ;
   });
 

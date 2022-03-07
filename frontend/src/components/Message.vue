@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { io } from "socket.io-client"
-import { onBeforeMount, ref } from "vue";
-import { isJoinedChat, MessageDisplay, messageForm, messageHistory, SubmitMessageForm, useMessage } from "../composables/useMessage";
-
-const { createMessageResponse, createMessage } = useMessage()
+import { MessageDisplay, messageHistory, useMessage } from "../composables/useMessage";
 
 function getTimeDisplay(message: MessageDisplay) {
   return `${message.time.month} ${message.time.day}, ${message.time.hour}:${message.time.minute}:${message.time.second} ${message.time.twelveHourText}`
