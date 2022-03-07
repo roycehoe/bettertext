@@ -17,7 +17,6 @@ export function setupSocketServer(io: Server) {
         });
 
         socket.on("message", (room, data) => {
-            console.log(data)
             io.sockets.in(room).emit('message', data)
         })
 
@@ -25,7 +24,8 @@ export function setupSocketServer(io: Server) {
             io.sockets.in(room).emit('messagesent')
         })
 
-        socket.on('disconnect', (room) => {
+        socket.on('logout', (room) => {
+            console.log('room left')
             socket.leave(room);
         });
     });

@@ -56,7 +56,6 @@ export function useMessage() {
             messageHistory.value = _getCreateMessageArray(response as Array<MessageResponse>)
             return
         }
-        console.log(response)
     }
 
 
@@ -66,7 +65,6 @@ export function useMessage() {
             createMessageResponse.value = _getCreateMessageResponse(response as CreateMessageResponse)
             return
         }
-        console.log(response)
     }
 
     async function resetMessageForm(): Promise<void> {

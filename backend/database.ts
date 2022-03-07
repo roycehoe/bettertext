@@ -1,10 +1,10 @@
-const { MongoClient } = require('mongodb');
+import { Collection, MongoClient } from 'mongodb';
 
 // const url = 'mongodb://database:27017'
-const url = 'mongodb://localhost:27017'
-const dbName = 'mongochat'
+const DB_URL = 'mongodb://localhost:27017'
+const DB_NAME = 'mongochat'
 
-const dbClient = new MongoClient(url)
+const dbClient = new MongoClient(DB_URL)
 
 export interface SetTextDataRequest {
   username: string
@@ -21,11 +21,9 @@ interface Chatroom {
 export async function createMessage(data: SetTextDataRequest) {
   try {
     await dbClient.connect();
-    const db = dbClient.db(dbName);
+    const db = dbClient.db(DB_NAME);
     const collection = db.collection('documents')
-
-    const insertResult = await collection.insertOne(data)
-    // console.log('Inserted documents =>', insertResult); //remove on deployment
+    await collection.insertOne(data)
   }
   catch (e) {
     console.error(e)
@@ -38,11 +36,10 @@ export async function createMessage(data: SetTextDataRequest) {
 export async function getMessage(chatroom: Chatroom) {
   try {
     await dbClient.connect();
-    const db = dbClient.db(dbName);
+    const db = dbClient.db(DB_NAME);
     const collection = db.collection('documents')
 
     const findResult = await collection.find(chatroom).toArray();
-    // console.log('Found documents =>', findResult);
     return findResult
   }
   catch (e) {

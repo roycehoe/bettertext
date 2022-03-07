@@ -1,7 +1,6 @@
 import { io } from "socket.io-client"
+import { BASEURL } from "../services"
 
-const SOCKET_URL = "http://localhost:8000"
-
-export function createSocket() {
-    return io(SOCKET_URL)
+export function getSocket() {
+    return io(BASEURL)
 }

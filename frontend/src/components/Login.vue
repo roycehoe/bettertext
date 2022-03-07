@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { io } from "socket.io-client"
 import { isJoinedChat, messageForm, messageHistory, useMessage } from '../composables/useMessage';
+import { getSocket } from '../composables/getSocket'
 
 
 const { getAllMessage } = useMessage()
@@ -14,7 +14,7 @@ function _scrollToTop() {
 }
 
 function setupMessageSocket() {
-  const socket = io("http://localhost:8000")
+  const socket = getSocket()
 
   socket.on('connect', () => {
     socket.emit('room', messageForm.value.chatroom, messageForm.value.username)
