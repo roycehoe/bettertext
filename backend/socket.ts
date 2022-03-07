@@ -14,7 +14,6 @@ export function setupSocketServer(io: Server) {
         socket.on('room', (username, room) => {
             socket.join(room);
             console.log(username, "has joined the following room:", room)
-            io.sockets.in(room).emit('messagesent')
         });
 
         socket.on("message", (room, data) => {

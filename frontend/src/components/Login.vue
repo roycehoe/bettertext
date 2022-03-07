@@ -11,14 +11,11 @@ function setupMessageSocket() {
   const socket = io("http://localhost:8000")
   socket.on('connect', () => {
     socket.emit('room', messageForm.value.chatroom, messageForm.value.username)
-    const messageList = document.getElementById("messageList");
-    if (messageList?.scrollHeight) {
-      messageList.scrollTop = messageList.scrollHeight;
-    }
-    ;
+      ;
   });
   socket.on('message', (data) => {
     messageSessionHistory.value.push(data)
+    console.log(messageSessionHistory.value)
       ;
   });
 
@@ -26,6 +23,7 @@ function setupMessageSocket() {
     const messageList = document.getElementById("messageList");
     if (messageList) {
       messageList.scrollTop = messageList.scrollHeight;
+      console.log("scrolled")
     }
   })
 }
