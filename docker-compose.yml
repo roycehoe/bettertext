@@ -13,8 +13,6 @@ services:
     volumes:
       - /app/node_modules
       - ./backend:/app
-    ports:
-      - "8000:8000"
 
   webpage:
     build: ./frontend
