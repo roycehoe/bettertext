@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { io } from "socket.io-client"
-import { getSocket } from "../composables/getSocket";
 import { isJoinedChat, messageForm, useMessage } from "../composables/useMessage";
 import Message from "./Message.vue";
 
@@ -9,7 +8,7 @@ const { createMessageResponse, createMessage, resetMessageForm } = useMessage()
 
 
 async function sendMessage() {
-  const socket = getSocket()
+  const socket = io()
   await createMessage(messageForm.value)
 
   socket.emit('message', messageForm.value.chatroom, createMessageResponse.value)
@@ -18,7 +17,7 @@ async function sendMessage() {
 }
 
 function socketLogout() {
-  const socket = getSocket()
+  const socket = io()
   socket.emit('logout', messageForm.value.chatroom)
 }
 
